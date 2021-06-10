@@ -1,4 +1,4 @@
-From 891ed926bf9e31d97a3c1b166c55666d32531d37 Mon Sep 17 00:00:00 2001
+From 87c19e474ce3f92b2cb78fe08d1edf94433dca06 Mon Sep 17 00:00:00 2001
 From: Troy Frew <fuzzy_bot@arenaga.me>
 Date: Tue, 15 Nov 2016 10:31:04 -0500
 Subject: [PATCH] 1.7.x Protocol Patch
@@ -129,7 +129,7 @@ index 31a95495..93d17f6b 100644
  
      @Override
 diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/MinecraftDecoder.java b/protocol/src/main/java/net/md_5/bungee/protocol/MinecraftDecoder.java
-index ac9f114d..2caadfed 100644
+index 01d35f41..52f60276 100644
 --- a/protocol/src/main/java/net/md_5/bungee/protocol/MinecraftDecoder.java
 +++ b/protocol/src/main/java/net/md_5/bungee/protocol/MinecraftDecoder.java
 @@ -57,7 +57,7 @@ public class MinecraftDecoder extends MessageToMessageDecoder<ByteBuf>
@@ -154,10 +154,10 @@ index d4b03843..9aac7ca9 100644
      }
  }
 diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/Protocol.java b/protocol/src/main/java/net/md_5/bungee/protocol/Protocol.java
-index d372933d..1feee418 100644
+index d2a11a82..2cc0f825 100644
 --- a/protocol/src/main/java/net/md_5/bungee/protocol/Protocol.java
 +++ b/protocol/src/main/java/net/md_5/bungee/protocol/Protocol.java
-@@ -55,7 +55,7 @@ public enum Protocol
+@@ -58,7 +58,7 @@ public enum Protocol
              TO_SERVER.registerPacket(
                      Handshake.class,
                      Handshake::new, // Waterfall - speed up packet construction
@@ -166,7 +166,7 @@ index d372933d..1feee418 100644
              );
          }
      },
-@@ -67,7 +67,7 @@ public enum Protocol
+@@ -70,7 +70,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      KeepAlive.class,
                      KeepAlive::new, // Waterfall - speed up packet construction
@@ -175,7 +175,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x1F ),
                      map( ProtocolConstants.MINECRAFT_1_13, 0x21 ),
                      map( ProtocolConstants.MINECRAFT_1_14, 0x20 ),
-@@ -78,7 +78,7 @@ public enum Protocol
+@@ -82,7 +82,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      Login.class,
                      Login::new, // Waterfall - speed up packet construction
@@ -184,7 +184,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x23 ),
                      map( ProtocolConstants.MINECRAFT_1_13, 0x25 ),
                      map( ProtocolConstants.MINECRAFT_1_15, 0x26 ),
-@@ -88,7 +88,7 @@ public enum Protocol
+@@ -93,7 +93,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      Chat.class,
                      Chat::new, // Waterfall - speed up packet construction
@@ -193,7 +193,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x0F ),
                      map( ProtocolConstants.MINECRAFT_1_13, 0x0E ),
                      map( ProtocolConstants.MINECRAFT_1_15, 0x0F ),
-@@ -97,7 +97,7 @@ public enum Protocol
+@@ -103,7 +103,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      Respawn.class,
                      Respawn::new, // Waterfall - speed up packet construction
@@ -202,25 +202,21 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x33 ),
                      map( ProtocolConstants.MINECRAFT_1_12, 0x34 ),
                      map( ProtocolConstants.MINECRAFT_1_12_1, 0x35 ),
-@@ -118,7 +118,7 @@ public enum Protocol
+@@ -126,20 +126,19 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      EntityEffect.class,
                      EntityEffect::new, // Waterfall - speed up packet construction
 -                    map(ProtocolConstants.MINECRAFT_1_8, 0x1D),
 +                    map(ProtocolConstants.MINECRAFT_1_7_2, 0x1D), // Travertine
-                     map(ProtocolConstants.MINECRAFT_1_9, 0x4C),
-                     map(ProtocolConstants.MINECRAFT_1_9_4, 0x4B),
-                     map(ProtocolConstants.MINECRAFT_1_12, 0x4E),
-@@ -131,7 +131,7 @@ public enum Protocol
+                     map(ProtocolConstants.MINECRAFT_1_9, Integer.MIN_VALUE)
+             );
              TO_CLIENT.registerPacket(
                      EntityRemoveEffect.class,
                      EntityRemoveEffect::new, // Waterfall - speed up packet construction
 -                    map(ProtocolConstants.MINECRAFT_1_8, 0x1E),
 +                    map(ProtocolConstants.MINECRAFT_1_7_2, 0x1E), // Travertine
-                     map(ProtocolConstants.MINECRAFT_1_9, 0x31),
-                     map(ProtocolConstants.MINECRAFT_1_12, 0x32),
-                     map(ProtocolConstants.MINECRAFT_1_12_1, 0x33),
-@@ -144,8 +144,7 @@ public enum Protocol
+                     map(ProtocolConstants.MINECRAFT_1_9, Integer.MIN_VALUE)
+             );
              // Waterfall end
              TO_CLIENT.registerPacket(
                      PlayerListItem.class, // PlayerInfo
@@ -230,7 +226,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x2D ),
                      map( ProtocolConstants.MINECRAFT_1_12_1, 0x2E ),
                      map( ProtocolConstants.MINECRAFT_1_13, 0x30 ),
-@@ -157,7 +156,7 @@ public enum Protocol
+@@ -152,7 +151,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      TabCompleteResponse.class,
                      TabCompleteResponse::new, // Waterfall - speed up packet construction
@@ -239,7 +235,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x0E ),
                      map( ProtocolConstants.MINECRAFT_1_13, 0x10 ),
                      map( ProtocolConstants.MINECRAFT_1_15, 0x11 ),
-@@ -167,7 +166,7 @@ public enum Protocol
+@@ -163,7 +162,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      ScoreboardObjective.class,
                      ScoreboardObjective::new, // Waterfall - speed up packet construction
@@ -248,7 +244,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x3F ),
                      map( ProtocolConstants.MINECRAFT_1_12, 0x41 ),
                      map( ProtocolConstants.MINECRAFT_1_12_1, 0x42 ),
-@@ -178,7 +177,7 @@ public enum Protocol
+@@ -175,7 +174,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      ScoreboardScore.class,
                      ScoreboardScore::new, // Waterfall - speed up packet construction
@@ -257,7 +253,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x42 ),
                      map( ProtocolConstants.MINECRAFT_1_12, 0x44 ),
                      map( ProtocolConstants.MINECRAFT_1_12_1, 0x45 ),
-@@ -189,7 +188,7 @@ public enum Protocol
+@@ -187,7 +186,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      ScoreboardDisplay.class,
                      ScoreboardDisplay::new, // Waterfall - speed up packet construction
@@ -266,7 +262,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x38 ),
                      map( ProtocolConstants.MINECRAFT_1_12, 0x3A ),
                      map( ProtocolConstants.MINECRAFT_1_12_1, 0x3B ),
-@@ -200,7 +199,7 @@ public enum Protocol
+@@ -199,7 +198,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      Team.class,
                      Team::new, // Waterfall - speed up packet construction
@@ -284,7 +280,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x18 ),
                      map( ProtocolConstants.MINECRAFT_1_13, 0x19 ),
                      map( ProtocolConstants.MINECRAFT_1_14, 0x18 ),
-@@ -222,7 +221,7 @@ public enum Protocol
+@@ -223,7 +222,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      Kick.class,
                      Kick::new, // Waterfall - speed up packet construction
@@ -293,7 +289,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x1A ),
                      map( ProtocolConstants.MINECRAFT_1_13, 0x1B ),
                      map( ProtocolConstants.MINECRAFT_1_14, 0x1A ),
-@@ -233,7 +232,7 @@ public enum Protocol
+@@ -235,7 +234,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      Title.class,
                      Title::new, // Waterfall - speed up packet construction
@@ -302,7 +298,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_12, 0x47 ),
                      map( ProtocolConstants.MINECRAFT_1_12_1, 0x48 ),
                      map( ProtocolConstants.MINECRAFT_1_13, 0x4B ),
-@@ -244,7 +243,7 @@ public enum Protocol
+@@ -257,7 +256,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      PlayerListHeaderFooter.class,
                      PlayerListHeaderFooter::new, // Waterfall - speed up packet construction
@@ -311,7 +307,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x48 ),
                      map( ProtocolConstants.MINECRAFT_1_9_4, 0x47 ),
                      map( ProtocolConstants.MINECRAFT_1_12, 0x49 ),
-@@ -257,7 +256,7 @@ public enum Protocol
+@@ -271,7 +270,7 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      EntityStatus.class,
                      EntityStatus::new, // Waterfall - speed up packet construction
@@ -320,7 +316,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x1B ),
                      map( ProtocolConstants.MINECRAFT_1_13, 0x1C ),
                      map( ProtocolConstants.MINECRAFT_1_14, 0x1B ),
-@@ -291,7 +290,7 @@ public enum Protocol
+@@ -309,7 +308,7 @@ public enum Protocol
              TO_SERVER.registerPacket(
                      KeepAlive.class,
                      KeepAlive::new, // Waterfall - speed up packet construction
@@ -329,7 +325,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x0B ),
                      map( ProtocolConstants.MINECRAFT_1_12, 0x0C ),
                      map( ProtocolConstants.MINECRAFT_1_12_1, 0x0B ),
-@@ -302,7 +301,7 @@ public enum Protocol
+@@ -321,7 +320,7 @@ public enum Protocol
              TO_SERVER.registerPacket(
                      Chat.class,
                      Chat::new, // Waterfall - speed up packet construction
@@ -338,7 +334,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x02 ),
                      map( ProtocolConstants.MINECRAFT_1_12, 0x03 ),
                      map( ProtocolConstants.MINECRAFT_1_12_1, 0x02 ),
-@@ -311,7 +310,7 @@ public enum Protocol
+@@ -330,7 +329,7 @@ public enum Protocol
              TO_SERVER.registerPacket(
                      TabCompleteRequest.class,
                      TabCompleteRequest::new, // Waterfall - speed up packet construction
@@ -347,7 +343,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x01 ),
                      map( ProtocolConstants.MINECRAFT_1_12, 0x02 ),
                      map( ProtocolConstants.MINECRAFT_1_12_1, 0x01 ),
-@@ -321,7 +320,7 @@ public enum Protocol
+@@ -340,7 +339,7 @@ public enum Protocol
              TO_SERVER.registerPacket(
                      ClientSettings.class,
                      ClientSettings::new, // Waterfall - speed up packet construction
@@ -356,7 +352,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x04 ),
                      map( ProtocolConstants.MINECRAFT_1_12, 0x05 ),
                      map( ProtocolConstants.MINECRAFT_1_12_1, 0x04 ),
-@@ -330,7 +329,7 @@ public enum Protocol
+@@ -349,7 +348,7 @@ public enum Protocol
              TO_SERVER.registerPacket(
                      PluginMessage.class,
                      PluginMessage::new, // Waterfall - speed up packet construction
@@ -365,7 +361,7 @@ index d372933d..1feee418 100644
                      map( ProtocolConstants.MINECRAFT_1_9, 0x09 ),
                      map( ProtocolConstants.MINECRAFT_1_12, 0x0A ),
                      map( ProtocolConstants.MINECRAFT_1_12_1, 0x09 ),
-@@ -347,23 +346,23 @@ public enum Protocol
+@@ -367,23 +366,23 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      StatusResponse.class,
                      StatusResponse::new, // Waterfall - speed up packet construction
@@ -393,7 +389,7 @@ index d372933d..1feee418 100644
              );
          }
      },
-@@ -375,22 +374,22 @@ public enum Protocol
+@@ -395,22 +394,22 @@ public enum Protocol
              TO_CLIENT.registerPacket(
                      Kick.class,
                      Kick::new, // Waterfall - speed up packet construction
@@ -420,7 +416,7 @@ index d372933d..1feee418 100644
              );
              TO_CLIENT.registerPacket(
                      LoginPayloadRequest.class,
-@@ -401,12 +400,12 @@ public enum Protocol
+@@ -421,12 +420,12 @@ public enum Protocol
              TO_SERVER.registerPacket(
                      LoginRequest.class,
                      LoginRequest::new, // Waterfall - speed up packet construction
@@ -435,7 +431,7 @@ index d372933d..1feee418 100644
              );
              TO_SERVER.registerPacket(
                      LoginPayloadResponse.class,
-@@ -526,7 +525,11 @@ public enum Protocol
+@@ -546,7 +545,11 @@ public enum Protocol
              }
              if ( !hasPacket(id, supportsForge) )
              {
@@ -449,7 +445,7 @@ index d372933d..1feee418 100644
  
              java.util.function.Supplier<? extends DefinedPacket> constructor = protocolData.packetConstructors[id]; // Waterfall - speed up packet construction
 diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/ProtocolConstants.java b/protocol/src/main/java/net/md_5/bungee/protocol/ProtocolConstants.java
-index 2202c4d3..6600185b 100644
+index 8c021273..b6c37497 100644
 --- a/protocol/src/main/java/net/md_5/bungee/protocol/ProtocolConstants.java
 +++ b/protocol/src/main/java/net/md_5/bungee/protocol/ProtocolConstants.java
 @@ -6,6 +6,8 @@ import java.util.List;
@@ -461,23 +457,23 @@ index 2202c4d3..6600185b 100644
      public static final int MINECRAFT_1_8 = 47;
      public static final int MINECRAFT_1_9 = 107;
      public static final int MINECRAFT_1_9_1 = 108;
-@@ -34,6 +36,7 @@ public class ProtocolConstants
-     public static final int MINECRAFT_1_16_3 = 753;
-     public static final int MINECRAFT_1_16_4 = 754;
-     public static final List<String> SUPPORTED_VERSIONS = Arrays.asList(
-+            "1.7.x",
-             "1.8.x",
-             "1.9.x",
-             "1.10.x",
-@@ -45,6 +48,8 @@ public class ProtocolConstants
-             "1.16.x"
-     );
-     public static final List<Integer> SUPPORTED_VERSION_IDS = Arrays.asList(
-+            ProtocolConstants.MINECRAFT_1_7_2,
-+            ProtocolConstants.MINECRAFT_1_7_6,
-             ProtocolConstants.MINECRAFT_1_8,
-             ProtocolConstants.MINECRAFT_1_9,
-             ProtocolConstants.MINECRAFT_1_9_1,
+@@ -40,6 +42,7 @@ public class ProtocolConstants
+     static
+     {
+         ImmutableList.Builder<String> supportedVersions = ImmutableList.<String>builder().add(
++                "1.7.x",
+                 "1.8.x",
+                 "1.9.x",
+                 "1.10.x",
+@@ -52,6 +55,8 @@ public class ProtocolConstants
+                 "1.17"
+         );
+         ImmutableList.Builder<Integer> supportedVersionIds = ImmutableList.<Integer>builder().add(
++                ProtocolConstants.MINECRAFT_1_7_2,
++                ProtocolConstants.MINECRAFT_1_7_6,
+                 ProtocolConstants.MINECRAFT_1_8,
+                 ProtocolConstants.MINECRAFT_1_9,
+                 ProtocolConstants.MINECRAFT_1_9_1,
 diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/Varint21FrameDecoder.java b/protocol/src/main/java/net/md_5/bungee/protocol/Varint21FrameDecoder.java
 index c0d37142..a07e25b1 100644
 --- a/protocol/src/main/java/net/md_5/bungee/protocol/Varint21FrameDecoder.java
@@ -513,7 +509,7 @@ index c0d37142..a07e25b1 100644
  
                  if ( in.readableBytes() < length )
 diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/packet/Chat.java b/protocol/src/main/java/net/md_5/bungee/protocol/packet/Chat.java
-index 828a5dbe..195ec088 100644
+index 4749a671..a70ef1f9 100644
 --- a/protocol/src/main/java/net/md_5/bungee/protocol/packet/Chat.java
 +++ b/protocol/src/main/java/net/md_5/bungee/protocol/packet/Chat.java
 @@ -1,5 +1,6 @@
@@ -546,7 +542,7 @@ index 828a5dbe..195ec088 100644
  
      @Override
      public void read(ByteBuf buf, ProtocolConstants.Direction direction, int protocolVersion)
-@@ -56,6 +64,14 @@ public class Chat extends DefinedPacket
+@@ -51,6 +59,14 @@ public class Chat extends DefinedPacket
          }
      }
  
@@ -562,7 +558,7 @@ index 828a5dbe..195ec088 100644
      public void write(ByteBuf buf, ProtocolConstants.Direction direction, int protocolVersion)
      {
 diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/packet/ClientSettings.java b/protocol/src/main/java/net/md_5/bungee/protocol/packet/ClientSettings.java
-index 9daf7a73..b7640fcb 100644
+index 29440533..c7b2e310 100644
 --- a/protocol/src/main/java/net/md_5/bungee/protocol/packet/ClientSettings.java
 +++ b/protocol/src/main/java/net/md_5/bungee/protocol/packet/ClientSettings.java
 @@ -1,5 +1,7 @@
@@ -582,9 +578,9 @@ index 9daf7a73..b7640fcb 100644
  {
  
      private String locale;
-@@ -24,6 +26,19 @@ public class ClientSettings extends DefinedPacket
-     private byte skinParts;
+@@ -25,6 +27,19 @@ public class ClientSettings extends DefinedPacket
      private int mainHand;
+     private boolean disableTextFiltering;
  
 +    // Travertine start
 +    @Override
@@ -602,7 +598,7 @@ index 9daf7a73..b7640fcb 100644
      @Override
      public void read(ByteBuf buf, ProtocolConstants.Direction direction, int protocolVersion)
      {
-@@ -58,6 +73,19 @@ public class ClientSettings extends DefinedPacket
+@@ -67,6 +82,19 @@ public class ClientSettings extends DefinedPacket
          }
      }
  
@@ -1156,7 +1152,7 @@ index 0b27fc86..74066702 100644
      public void write(ByteBuf buf, ProtocolConstants.Direction direction, int protocolVersion)
      {
 diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/packet/TabCompleteRequest.java b/protocol/src/main/java/net/md_5/bungee/protocol/packet/TabCompleteRequest.java
-index 3e4ea192..421805e6 100644
+index 88d631cd..ac867247 100644
 --- a/protocol/src/main/java/net/md_5/bungee/protocol/packet/TabCompleteRequest.java
 +++ b/protocol/src/main/java/net/md_5/bungee/protocol/packet/TabCompleteRequest.java
 @@ -1,5 +1,6 @@
@@ -1288,7 +1284,7 @@ index a5555f6a..415a4bcd 100644
      public void write(ByteBuf buf, ProtocolConstants.Direction direction, int protocolVersion)
      {
 diff --git a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
-index f7f1e7cc..a17ed68e 100644
+index 97de4271..3b0dff08 100644
 --- a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
 +++ b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
 @@ -170,6 +170,14 @@ public class BungeeCord extends ProxyServer
@@ -1307,18 +1303,10 @@ index f7f1e7cc..a17ed68e 100644
      private ConnectionThrottle connectionThrottle;
      private final ModuleManager moduleManager = new ModuleManager();
 diff --git a/proxy/src/main/java/net/md_5/bungee/BungeeTitle.java b/proxy/src/main/java/net/md_5/bungee/BungeeTitle.java
-index 494213db..1d89acf5 100644
+index 1d377a65..6c7d4abb 100644
 --- a/proxy/src/main/java/net/md_5/bungee/BungeeTitle.java
 +++ b/proxy/src/main/java/net/md_5/bungee/BungeeTitle.java
-@@ -5,6 +5,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
- import net.md_5.bungee.api.connection.ProxiedPlayer;
- import net.md_5.bungee.chat.ComponentSerializer;
- import net.md_5.bungee.protocol.DefinedPacket;
-+import net.md_5.bungee.protocol.ProtocolConstants;
- import net.md_5.bungee.protocol.packet.Title.Action;
- 
- public class BungeeTitle implements Title
-@@ -151,6 +152,7 @@ public class BungeeTitle implements Title
+@@ -183,6 +183,7 @@ public class BungeeTitle implements Title
      @Override
      public Title send(ProxiedPlayer player)
      {
@@ -1382,7 +1370,7 @@ index 491cf1a1..299a216c 100644
      }
  }
 diff --git a/proxy/src/main/java/net/md_5/bungee/ServerConnector.java b/proxy/src/main/java/net/md_5/bungee/ServerConnector.java
-index 2d9c0cda..a4c25575 100644
+index a5efb0af..7ad7a212 100644
 --- a/proxy/src/main/java/net/md_5/bungee/ServerConnector.java
 +++ b/proxy/src/main/java/net/md_5/bungee/ServerConnector.java
 @@ -6,6 +6,7 @@ import io.netty.buffer.ByteBufAllocator;
@@ -1393,7 +1381,7 @@ index 2d9c0cda..a4c25575 100644
  import java.util.Queue;
  import java.util.Set;
  import java.util.UUID;
-@@ -270,10 +271,20 @@ public class ServerConnector extends PacketHandler
+@@ -271,10 +272,20 @@ public class ServerConnector extends PacketHandler
                  user.getServer().disconnect( "Quitting" );
              } else
              {
@@ -1418,7 +1406,7 @@ index 2d9c0cda..a4c25575 100644
              }
  
              user.setDimension( login.getDimension() );
-@@ -286,7 +297,7 @@ public class ServerConnector extends PacketHandler
+@@ -287,7 +298,7 @@ public class ServerConnector extends PacketHandler
              if ( !user.isDisableEntityMetadataRewrite() ) { // Waterfall
              for ( Objective objective : serverScoreboard.getObjectives() )
              {
@@ -1427,7 +1415,7 @@ index 2d9c0cda..a4c25575 100644
              }
              for ( Score score : serverScoreboard.getScores() )
              {
-@@ -456,6 +467,14 @@ public class ServerConnector extends PacketHandler
+@@ -457,6 +468,14 @@ public class ServerConnector extends PacketHandler
              {
                  this.handshakeHandler.handle( pluginMessage );
  
@@ -1443,10 +1431,10 @@ index 2d9c0cda..a4c25575 100644
                  throw CancelSendSignal.INSTANCE;
              }
 diff --git a/proxy/src/main/java/net/md_5/bungee/UserConnection.java b/proxy/src/main/java/net/md_5/bungee/UserConnection.java
-index 7ec119ea..986a9d05 100644
+index 01075a85..96df0175 100644
 --- a/proxy/src/main/java/net/md_5/bungee/UserConnection.java
 +++ b/proxy/src/main/java/net/md_5/bungee/UserConnection.java
-@@ -193,6 +193,7 @@ public final class UserConnection implements ProxiedPlayer
+@@ -196,6 +196,7 @@ public final class UserConnection implements ProxiedPlayer
      public void setDisplayName(String name)
      {
          Preconditions.checkNotNull( name, "displayName" );
@@ -1454,7 +1442,7 @@ index 7ec119ea..986a9d05 100644
          displayName = name;
      }
  
-@@ -497,7 +498,8 @@ public final class UserConnection implements ProxiedPlayer
+@@ -500,7 +501,8 @@ public final class UserConnection implements ProxiedPlayer
          // transform score components
          message = ChatComponentTransformer.getInstance().transform( this, true, message );
  
@@ -1464,7 +1452,7 @@ index 7ec119ea..986a9d05 100644
          {
              // Versions older than 1.11 cannot send the Action bar with the new JSON formattings
              // Fix by converting to a legacy message, see https://bugs.mojang.com/browse/MC-119145
-@@ -693,6 +695,7 @@ public final class UserConnection implements ProxiedPlayer
+@@ -696,6 +698,7 @@ public final class UserConnection implements ProxiedPlayer
      @Override
      public void setTabHeader(BaseComponent header, BaseComponent footer)
      {
@@ -1472,7 +1460,7 @@ index 7ec119ea..986a9d05 100644
          header = ChatComponentTransformer.getInstance().transform( this, true, header )[0];
          footer = ChatComponentTransformer.getInstance().transform( this, true, footer )[0];
  
-@@ -705,6 +708,7 @@ public final class UserConnection implements ProxiedPlayer
+@@ -708,6 +711,7 @@ public final class UserConnection implements ProxiedPlayer
      @Override
      public void setTabHeader(BaseComponent[] header, BaseComponent[] footer)
      {
@@ -1480,7 +1468,7 @@ index 7ec119ea..986a9d05 100644
          header = ChatComponentTransformer.getInstance().transform( this, true, header );
          footer = ChatComponentTransformer.getInstance().transform( this, true, footer );
  
-@@ -734,6 +738,7 @@ public final class UserConnection implements ProxiedPlayer
+@@ -737,6 +741,7 @@ public final class UserConnection implements ProxiedPlayer
  
      public void setCompressionThreshold(int compressionThreshold)
      {
@@ -1558,7 +1546,7 @@ index 9e180c30..d54d8539 100644
              con.unsafe().sendPacket( pluginMessage );
              throw CancelSendSignal.INSTANCE;
 diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
-index b7ecd828..3b82219d 100644
+index 08c49fcc..d66dddc1 100644
 --- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 +++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 @@ -3,6 +3,8 @@ package net.md_5.bungee.connection;
@@ -1641,7 +1629,7 @@ index 4d7b1b23..ad3bdee5 100644
              con.getServer().disconnect( "Quitting" );
          }
 diff --git a/proxy/src/main/java/net/md_5/bungee/entitymap/EntityMap.java b/proxy/src/main/java/net/md_5/bungee/entitymap/EntityMap.java
-index db93d883..a3a12e19 100644
+index 13456b34..44066317 100644
 --- a/proxy/src/main/java/net/md_5/bungee/entitymap/EntityMap.java
 +++ b/proxy/src/main/java/net/md_5/bungee/entitymap/EntityMap.java
 @@ -35,6 +35,10 @@ public abstract class EntityMap
